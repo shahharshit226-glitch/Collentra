@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Collentra",
+    "slug": "collentra",
+    "scheme": "collentra",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "in.ac.kiit.collentra"
+    },
+    "android": {
+      "package": "in.ac.kiit.collentra",
+      "adaptiveIcon": {
+        "backgroundColor": "#14151A",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-router", "expo-font"]
+  }
+}
