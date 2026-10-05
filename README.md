@@ -71,7 +71,7 @@ npm run ios
 npm run web
 ```
 
-The root npm scripts delegate to `mobile/`. You can also run Expo commands from that directory, for example `npx expo start`.
+The root npm scripts point Expo at the `mobile/` project directory. If you launch Expo directly, change into `mobile/` first so it reads that app's Expo Router entry point.
 
 ## Configuration and security
 

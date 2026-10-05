@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { toFriendlyAuthMessage } from '@/lib/authErrors';
+import * as Linking from 'expo-linking';
 
 type AuthResult = { error: string | null; needsEmailConfirmation?: boolean };
 
@@ -47,7 +48,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
-          options: { data: { full_name: fullName } },
+          options: {
+            data: { full_name: fullName },
+            emailRedirectTo: Linking.createURL('auth/confirmed'),
+          },
         });
         if (error) return { error: toFriendlyAuthMessage(error) };
         // With "Confirm email" enabled in Supabase (see SUPABASE_SETUP.md

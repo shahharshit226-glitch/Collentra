@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "start": "npm --prefix mobile run start -- --port 8082",
-    "android": "npm --prefix mobile run android",
-    "ios": "npm --prefix mobile run ios",
-    "web": "npm --prefix mobile run web"
+    "start": "expo start mobile --port 8082",
+    "android": "expo start mobile --android",
+    "ios": "expo start mobile --ios",
+    "web": "expo start mobile --web"
   },
   "devDependencies": {
     "@types/react": "~19.2.4",
@@ -11,6 +11,7 @@
     "typescript": "~6.0.3"
   },
   "dependencies": {
-    "expo": "^57.0.25"
+    "expo": "^57.0.25",
+    "react-dom": "^19.2.3"
   }
 }

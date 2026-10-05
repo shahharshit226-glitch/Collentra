@@ -44,11 +44,16 @@ applied everywhere. Full rationale is in the comments at the top of
 
 ## Running it
 
+From the repository root, install dependencies and configure `mobile/.env` as described in the root README. Start the app with one of these commands:
+
 ```bash
-npm install
-cp .env.example .env   # fill in from your Supabase project (see ../docs/SUPABASE_SETUP.md)
-npx expo start
+npm run start
+npm run android
+npm run ios
+npm run web
 ```
+
+If starting Expo directly, first change into the `mobile/` directory and then run `npx expo start`. Starting Expo from the repository root directly makes it detect the wrong package entry point.
 
 Scan the QR code with Expo Go (Android/iOS) or press `a` for an Android
 emulator. There's nothing to sign in to yet — the app opens straight into
