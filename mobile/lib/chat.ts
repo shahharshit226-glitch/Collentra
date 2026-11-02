@@ -145,7 +145,11 @@ export async function markConversationRead(conversationId: string, userId: strin
 /** Subscribes to new messages in one conversation. Call the returned
  * cleanup function when the screen unmounts (spec §98 -- don't leave
  * Realtime channels open longer than the screen that needs them). */
-export function subscribeToMessages(conversationId: string, onInsert: (message: ChatMessage) => void): () => void {
+export function subscribeToMessages(
+  conversationId: string,
+  onInsert: (message: ChatMessage) => void,
+  onError?: (message: string) => void,
+): () => void {
   const channel: RealtimeChannel = supabase
     .channel(`messages:${conversationId}`)
     .on(
@@ -153,7 +157,12 @@ export function subscribeToMessages(conversationId: string, onInsert: (message: 
       { event: 'INSERT', schema: 'public', table: 'messages', filter: `conversation_id=eq.${conversationId}` },
       (payload) => onInsert(payload.new as ChatMessage)
     )
-    .subscribe();
+    .subscribe((status, error) => {
+      if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+        const detail = error?.message ? ` (${error.message})` : '';
+        onError?.(`Live chat is unavailable right now${detail}. Pull to refresh and try again.`);
+      }
+    });
 
   return () => {
     supabase.removeChannel(channel);

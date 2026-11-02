@@ -57,7 +57,7 @@ export default function ChatConversationScreen() {
       markConversationRead(id, myId);
     })();
 
-    const unsubscribe = subscribeToMessages(id, appendIfNew);
+    const unsubscribe = subscribeToMessages(id, appendIfNew, setError);
     return () => {
       cancelled = true;
       unsubscribe();

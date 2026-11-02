@@ -21,7 +21,7 @@ supabase db push   # applies everything in supabase/migrations/ in order
 ```
 
 Or paste each file from `supabase/migrations/0001_...sql` through
-`0015_...sql` into the SQL editor, in filename order, one at a time.
+`0020_...sql` into the SQL editor, in filename order, one at a time.
 `0008` and part of `0014` touch `auth`/`storage` schemas — this requires
 running as the `postgres` role, which both the CLI and the SQL editor use
 by default (a normal REST/service-role API call would not have permission).
@@ -81,7 +81,13 @@ if (email) {
 in an accepted, unblocked connection with `target_id` — the client should
 treat a `null` result as "Email action unavailable" rather than erroring.
 
-## 7. Realtime chat subscription (client sketch)
+## 7. Realtime chat subscription
+
+Migration `0020_activate_chat_realtime.sql` repairs existing projects by
+ensuring `public.messages` is in the `supabase_realtime` publication and uses
+full replica identity. Apply it with `supabase db push` after linking the
+project. The mobile chat screen subscribes only while it is open and reports a
+channel timeout/error instead of silently appearing offline.
 
 ```ts
 const channel = supabase
